@@ -1,0 +1,240 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box; /* width: 100% にpadding・margin・線などを含める、という設定 */
+    caret-color: transparent; /* 縦棒（キャレット）の非表示 */
+}
+
+html {
+    /* Chrome, Safari, Edge, Opera 用 */
+    &::-webkit-scrollbar {
+        display: none;
+        /* Firefox 用 */
+        scrollbar-width: none;
+        /* IE, Edge (旧) 用 */
+        -ms-overflow-style: none;
+    }
+    /* 画面スクロールをゆっくりにする */
+    scroll-behavior: smooth;
+}
+/* //Base style */
+body {
+    /* background-color: #f00; */
+    color: #333;
+    font-family: 'メイリオ', 'arial', sans-serif;
+    margin: 0 auto;
+
+    /* macOS / iOS Safari 用：文字を滑らかに */
+    -webkit-font-smoothing: antialiased;
+    /* Firefox 用：同様の効果 */
+    -moz-osx-font-smoothing: grayscale;
+    /* font-size: 16px; */
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+.dummy {
+    height: 103px;
+    height: 52px;
+}
+img {
+    width: 100%;
+    /* vertical-align: middle; */
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.inner {
+    /* max-width: 600px; */
+    margin: 0 auto;
+}
+.section-title {
+    /* font-size: 1.125rem; */
+    /* font-weight: bold; */
+    /* margin-bottom: 10px; */
+}
+a {
+    cursor: pointer;
+    /* transition: all 0.3s; */
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        /* text-align: center; */
+    }
+}
+
+/* //Base style */
+
+/* figure */
+.flex {
+    display: flex;
+}
+.recipe {
+    padding: 40px clamp(10px, 5%, 60px) 0;
+    text-align: justify;
+    /* background-color: #f00; */
+}
+.image {
+    /* max-width: 600px;
+    margin-right: 60px; */
+}
+.flex .image {
+    width: 50%;
+}
+.image img {
+    width: 50vw;
+    max-width: 600px;
+    /* min-width: 375px;
+    min-height: calc(2250px / 5);
+    object-fit: cover; */
+}
+.page-title{
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+}
+.flex .recipe .content-title {
+    font-size: 1.25rem;
+    border-bottom: 1px solid #ccc;
+    margin: 40px 0 15px 0;
+    padding-bottom: 5px;
+}
+.flex .recipe .ingredient-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex .recipe .ingredient-list dt {
+    width: 85%;
+    padding: 6px 0;
+    border-bottom: 1px solid #ccc;
+}
+.flex .recipe .ingredient-list dd {
+    width: 15%;
+    padding: 6px 0;
+    border-bottom: 1px solid #ccc;
+    text-align: right;
+}
+.flex .recipe .step-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid #ccc;
+    list-style: decimal;
+list-style-position: inside;
+}
+
+@media screen and (max-width: 768px) {
+    .flex {
+        display: block;
+        text-align: center;
+    }
+    .image {
+        /* max-width: 600px;
+    margin-right: 60px; */
+    }
+    .flex .image {
+        width: 100%;
+    }
+    .image img {
+        width: 100vw;
+        /* max-width: 600px;
+    min-width: 375px;
+    min-height: calc(2250px / 5);
+    object-fit: cover; */
+    }
+}
+
+/* //figure */
+
+/* text */
+.text {
+    margin-top: 60px;
+    text-align: center;
+}
+.text .btn {
+    display: inline-block;
+    border: 1px solid #2b2a27;
+    font-size: 0.875rem;
+    padding: 18px 60px;
+    text-decoration: none;
+}
+/* //text */
+
+/* footer */
+#footer {
+    margin-top: 80px;
+}
+#footer ul {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+#footer ul li {
+    /* background-color: #f99; */
+    font-size: 0.75rem;
+}
+#footer p {
+    /* background-color: #f00; */
+    font-size: 0.625rem;
+    text-align: center;
+    padding: 20px 0;
+}
+/* //footer */
+
+@media screen and (max-width: 768px) {
+}
+
+/*
+last-child と last-of-type の違いは？
+
+html
+<div>
+  <p>1番目</p>
+  <p>2番目</p>
+  <span>最後はスパン</span>
+</div>
+
+css
+p:last-child { color: red; }  ⚠️反映されません
+理由: 最後の要素は <span> であり、<p> ではないからです。
+
+:last-child （最後の子要素）
+親要素の中にある一番最後の要素が、指定した条件と一致する場合のみ適用されます。
+
+
+css
+p:last-of-type { color: red; } ✅「2番目」が赤くなります
+理由: <span> が最後にいても関係なく、<p> の中で最後にあるものを探してくれるからです。
+
+:last-of-type （その種類の中での最後）
+親要素の中で、そのタグ（要素型）の中で一番最後にあるものに適用されます
+
+
+
+
+display: flex; と flex-wrap: wrap; の組み合わせは、
+「要素を横に並べつつ、入り切らなくなったら自動で改行させる」ための鉄板設定です。
+
+css
+.container {
+ display:   flex;    横並びにする
+ flex-wrap: wrap;    折り返しを許可する
+ gap:       10px;    アイテム同士の隙間
+}
+
+リストの先頭の記号や番号の領域を設定
+デフォルトでは領域の「外側」だが、「内側」に入れることで、テキストと一緒に中央へ移動さる。
+list-style: decimal;
+list-style-position: inside;
+
+
+
+*/
